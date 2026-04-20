@@ -1,0 +1,33 @@
+
+> premium-dev-portfolio@1.0.0 build
+> next build
+
+  ▲ Next.js 14.2.5
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../typescript/lib/typescript' in c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build for build dependencies doesn't lead to expected result 'C:\Users\lenovo\Desktop\THEPortfolio\node_modules\typescript\lib\typescript.js', but to 'c:\Users\lenovo\Desktop\THEPortfolio\node_modules\typescript\lib\typescript.js' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../typescript/lib/typescript (expected C:\Users\lenovo\Desktop\THEPortfolio\node_modules\typescript\lib\typescript.js)
+<w>  at file dependencies c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\load-jsconfig.js
+<w>  at file c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\load-jsconfig.js
+<w>  at file dependencies c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\webpack-config.js
+<w>  at file c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\webpack-config.js
+<w>  at file dependencies c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+
+> Build error occurred
+Error: ENOENT: no such file or directory, open 'c:\Users\lenovo\Desktop\THEPortfolio\.next\server\pages-manifest.json'
+    at async open (node:internal/fs/promises:637:25)
+    at async Object.readFile (node:internal/fs/promises:1269:14)
+    at async readManifest (c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\index.js:164:23)
+    at async c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\index.js:1040:35
+    at async Span.traceAsyncFn (c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\trace\trace.js:154:20)
+    at async build (c:\Users\lenovo\Desktop\THEPortfolio\node_modules\next\dist\build\index.js:366:9) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'c:\\Users\\lenovo\\Desktop\\THEPortfolio\\.next\\server\\pages-manifest.json'
+}
