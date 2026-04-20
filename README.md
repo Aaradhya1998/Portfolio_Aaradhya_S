@@ -115,6 +115,3 @@ This project is licensed under the MIT License.
 
 ---
 
-## 🙌 Acknowledgment
-
-Built with a focus on clean UI, scalability, and developer experience.
