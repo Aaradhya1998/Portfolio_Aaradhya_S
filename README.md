@@ -12,6 +12,7 @@ A modern developer portfolio built to showcase projects, technical skills, and w
 * 📊 Dynamic project and review sections
 * 📬 Contact form integration
 * ⚡ Optimized performance and fast loading
+* Blogging system and Feedback
 
 ---
 
