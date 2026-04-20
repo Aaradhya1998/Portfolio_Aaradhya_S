@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   const smtpPort = Number(process.env.SMTP_PORT || 587);
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
-  const recipient = process.env.CONTACT_RECIPIENT || 'hello@marcusbriggs.dev';
+  const recipient = process.env.CONTACT_RECIPIENT || 'aaradhya.shek@gmail.com';
 
   if (!smtpHost || !smtpUser || !smtpPass) {
     console.warn('SMTP configuration missing. Falling back to console logging.');

@@ -5,7 +5,7 @@
 :root {
   color-scheme: dark;
   font-family: 'Inter', system-ui, sans-serif;
-  background-color: #050816;
+  background-color: #02040d;
 }
 
 html {
@@ -15,10 +15,25 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at 10% 10%, rgba(79, 70, 229, 0.16), transparent 25%),
-    radial-gradient(circle at 90% 20%, rgba(14, 165, 233, 0.12), transparent 18%),
-    linear-gradient(180deg, #050816 0%, #090c1a 100%);
+  position: relative;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(56, 189, 248, 0.09), transparent 26%),
+    radial-gradient(circle at 84% 20%, rgba(129, 140, 248, 0.1), transparent 24%),
+    radial-gradient(circle at 50% 110%, rgba(15, 23, 42, 0.7), transparent 46%),
+    linear-gradient(180deg, #02040d 0%, #040919 45%, #030613 100%);
   color: #e2e8f0;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(8, 47, 73, 0.26), transparent 42%),
+    radial-gradient(circle at 0% 100%, rgba(30, 41, 59, 0.3), transparent 45%);
 }
 
 * {
@@ -39,4 +54,115 @@ textarea {
 ::selection {
   background: rgba(99, 102, 241, 0.4);
   color: #ffffff;
+}
+
+.type-caret {
+  margin-left: 0.08em;
+  color: #67e8f9;
+  animation: blink-caret 1s step-end infinite;
+}
+
+@keyframes blink-caret {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  z-index: 80;
+  will-change: transform;
+}
+
+.custom-cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  margin-top: -4px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.55);
+  transition: width 180ms ease, height 180ms ease, margin 180ms ease, background-color 180ms ease;
+}
+
+.custom-cursor-ring {
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+  margin-top: -15px;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.5);
+  background: rgba(7, 15, 28, 0.2);
+  backdrop-filter: blur(1px);
+  transition: width 220ms ease, height 220ms ease, margin 220ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+
+.custom-cursor-glow {
+  width: 140px;
+  height: 140px;
+  margin-left: -70px;
+  margin-top: -70px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.16) 0%, rgba(6, 11, 24, 0) 68%);
+  filter: blur(2px);
+  transition: opacity 220ms ease;
+}
+
+body.cursor-hovering .custom-cursor-ring {
+  width: 38px;
+  height: 38px;
+  margin-left: -19px;
+  margin-top: -19px;
+  border-color: rgba(34, 211, 238, 0.82);
+  background: rgba(8, 20, 36, 0.4);
+}
+
+body.cursor-hovering .custom-cursor-dot {
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+  background: #67e8f9;
+}
+
+body.cursor-pressed .custom-cursor-ring {
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  margin-top: -12px;
+}
+
+body.cursor-pressed .custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+}
+
+@media (pointer: fine) {
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  label {
+    cursor: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
 }

@@ -3,6 +3,8 @@ export interface ProjectItem {
   title: string;
   description: string;
   tech: string[];
+  typeLabel: string;
+  featured?: boolean;
   projectUrl: string;
   demoUrl: string;
   details: string[];
@@ -10,42 +12,49 @@ export interface ProjectItem {
 
 export const projects: ProjectItem[] = [
   {
-    slug: 'astra-commerce',
-    title: 'Astra Commerce',
-    description: 'A high-conversion e-commerce storefront with custom checkout flows, product personalization, and motion-rich interactions.',
-    tech: ['Next.js', 'Tailwind CSS', 'Stripe', 'Framer Motion'],
-    projectUrl: '/projects/astra-commerce',
-    demoUrl: 'https://astra-commerce.example.com',
+    slug: 'civicsolve',
+    title: 'CivicSolve',
+    description:
+      'A civic issue reporting platform where users can submit, track, and analyze public problems with structured workflows.',
+    tech: ['Next.js', 'React', 'Tailwind CSS', 'Vercel'],
+    typeLabel: 'Web App',
+    featured: true,
+    projectUrl: 'https://github.com/Aaradhya1998/CivicSolve',
+    demoUrl: 'https://civic-solve.vercel.app/',
     details: [
-      'Designed a modular checkout experience with rich animation and micro-interactions to increase conversions.',
-      'Implemented performance budgets and lazy loading to achieve sub-1.2s largest contentful paint.',
-      'Collaborated closely with product and marketing to align branding, messaging, and SEO strategy.'
+      'Built a clean reporting flow for issue submission, status updates, and problem tracking.',
+      'Used structured data handling to organize complaints and make issue progress transparent.',
+      'Deployed the app on Vercel and iterated UI for clarity and ease of use.'
     ]
   },
   {
-    slug: 'pulse-analytics',
-    title: 'Pulse Analytics',
-    description: 'Real-time business intelligence dashboard with custom charts, event tracking, and secure team collaboration.',
-    tech: ['TypeScript', 'React', 'D3.js', 'Vercel'],
-    projectUrl: '/projects/pulse-analytics',
-    demoUrl: 'https://pulse-analytics.example.com',
+    slug: 'qr-code-generator',
+    title: 'QR Code Generator',
+    description:
+      'A lightweight web tool that generates QR codes instantly from user input with fast rendering and a clean interface.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    typeLabel: 'Web Tool',
+    projectUrl: 'https://github.com/Aaradhya1998/qr-code-generator',
+    demoUrl: 'https://asqrgenrator.netlify.app/',
     details: [
-      'Built dynamic chart components and credentialed dashboards for secure stakeholder reporting.',
-      'Optimized data visualization rendering for real-time updates at scale.',
-      'Delivered a polished onboarding flow and admin controls for enterprise teams.'
+      'Implemented live QR generation to convert text input into scannable codes in real time.',
+      'Focused on fast interactions and a minimal interface for everyday usability.',
+      'Strengthened frontend fundamentals through DOM handling and lightweight client logic.'
     ]
   },
   {
-    slug: 'launchpad-studio',
-    title: 'LaunchPad Studio',
-    description: 'Agency portfolio and client onboarding platform featuring polished transitions, flexible theming and speed-first performance.',
-    tech: ['Next.js', 'Motion', 'Contentful', 'Stripe'],
-    projectUrl: '/projects/launchpad-studio',
-    demoUrl: 'https://launchpad-studio.example.com',
+    slug: 'uidai-campaign-predictor',
+    title: 'UIDAI Campaign Predictor',
+    description:
+      'A machine learning project that predicts campaign outcomes using structured data, preprocessing, and classification models.',
+    tech: ['Python', 'Pandas', 'Scikit-learn', 'Google Colab'],
+    typeLabel: 'Machine Learning Project',
+    projectUrl: 'https://github.com/Aaradhya1998/uidai-campaign-predictor',
+    demoUrl: 'https://colab.research.google.com/drive/1wCgeuJ7YhgSCcragcpSFtxb1k9NgN5Xk',
     details: [
-      'Created a brand-forward portfolio with immersive visual motion and onsite case studies.',
-      'Built a custom client onboarding dashboard with secure payments and content workflows.',
-      'Improved site performance and accessibility across desktop and mobile breakpoints.'
+      'Prepared and cleaned structured data in Python to build reliable model inputs.',
+      'Trained and evaluated baseline classification models to understand prediction accuracy.',
+      'Developed the workflow in Google Colab to experiment quickly and document results.'
     ]
   }
 ];

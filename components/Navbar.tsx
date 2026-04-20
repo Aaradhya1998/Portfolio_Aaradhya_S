@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Github, Instagram, Linkedin } from 'lucide-react';
 
 const navItems = [
   { label: 'Projects', href: '#projects' },
@@ -21,7 +21,7 @@ export function Navbar() {
     >
       <div className="backdrop-blur-2xl border border-white/10 bg-white/5 shadow-soft rounded-full px-5 py-3 flex items-center justify-between">
         <Link href="#hero" className="font-semibold tracking-[0.18em] text-slate-100">
-          MB
+          AS
         </Link>
 
         <nav className="hidden gap-6 md:flex">
@@ -33,14 +33,14 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3 text-slate-400">
-          <Link href="https://github.com/marcusbriggs" target="_blank" aria-label="GitHub" className="hover:text-white transition">
+          <Link href="https://github.com/Aaradhya1998" target="_blank" aria-label="GitHub" className="hover:text-white transition">
             <Github size={18} />
           </Link>
-          <Link href="https://linkedin.com/in/marcusbriggs" target="_blank" aria-label="LinkedIn" className="hover:text-white transition">
+          <Link href="https://www.linkedin.com/in/aaradhya-shekdar-724844383/" target="_blank" aria-label="LinkedIn" className="hover:text-white transition">
             <Linkedin size={18} />
           </Link>
-          <Link href="https://twitter.com/marcusbriggs" target="_blank" aria-label="Twitter" className="hover:text-white transition">
-            <Twitter size={18} />
+          <Link href="https://www.instagram.com/aaradhyashekdar/" target="_blank" aria-label="Instagram" className="hover:text-white transition">
+            <Instagram size={18} />
           </Link>
         </div>
       </div>

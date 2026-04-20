@@ -1,6 +1,25 @@
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { readFile } from 'fs/promises';
+import path from 'path';
+
+const resumeFileName = 'AaradhyaShekdar_Resume.pdf';
+const resumePath = path.join(process.cwd(), 'public', 'resume', resumeFileName);
 
 export async function GET() {
+  try {
+    const fileBuffer = await readFile(resumePath);
+
+    return new Response(fileBuffer, {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': `attachment; filename="${resumeFileName}"`
+      }
+    });
+  } catch {
+    // Fall back to generated PDF when no file is present in public/resume.
+  }
+
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage([595, 842]);
   const timesRoman = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -32,7 +51,7 @@ export async function GET() {
     status: 200,
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': 'attachment; filename="AaradhyaShekdar_Resume.pdf"'
+      'Content-Disposition': `attachment; filename="${resumeFileName}"`
     }
   });
 }
