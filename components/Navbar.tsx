@@ -10,9 +10,10 @@ const navItems = [
   { label: 'Experience', href: '#experience' },
   { label: 'Hackathons', href: '#hackathons' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Resume', href: '/resume' },
   { label: 'Contact', href: '#contact' }
 ];
+
+const resumeUrl = 'https://drive.google.com/drive/folders/1JHN6ZvkKbv-jxXlQpmHAe3MW5KUIOPnq?usp=drive_link';
 
 export function Navbar() {
   return (
@@ -33,6 +34,9 @@ export function Navbar() {
               {item.label}
             </a>
           ))}
+          <Link href={resumeUrl} target="_blank" rel="noreferrer" className="text-sm text-slate-200 transition hover:text-white">
+            Resume
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3 text-slate-400">

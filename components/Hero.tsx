@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 
 const fullName = 'Aaradhya Shekdar';
+const resumeUrl = 'https://drive.google.com/drive/folders/1JHN6ZvkKbv-jxXlQpmHAe3MW5KUIOPnq?usp=drive_link';
 
 export function Hero() {
   const { scrollY } = useScroll();
@@ -46,7 +47,7 @@ export function Hero() {
           </div>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <Link href="/resume" className="inline-flex items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(15,23,42,0.28)] transition hover:-translate-y-0.5 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-white/70">
+            <Link href={resumeUrl} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(15,23,42,0.28)] transition hover:-translate-y-0.5 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-white/70">
               <Download className="mr-2 h-4 w-4" />
               View Resume
             </Link>
