@@ -1,118 +1,130 @@
-# 🌐 Personal Portfolio
+# Aaradhya Shekdar Portfolio
 
-A modern developer portfolio built to showcase projects, technical skills, and written content. This portfolio highlights my work, blogs, and user-focused design approach.
+This is the source code for my personal developer portfolio, built to present my background, internships, projects, hackathons, technical skills, and contact information in a clean and modern format.
 
----
+Live site: https://aaradhyashekdar.vercel.app
 
-## 🚀 Features
+## Overview
 
-* ✨ Responsive and modern UI
-* 🧩 Modular component-based architecture
-* 📝 Blog system using Markdown (`content/posts`)
-* 📊 Dynamic project and review sections
-* 📬 Contact form integration
-* ⚡ Optimized performance and fast loading
-* Blogging system and Feedback
+The portfolio is designed to highlight real project work and practical experience in machine learning, full-stack development, quality assurance, and AI-assisted applications. It includes dedicated sections for:
 
----
+- About
+- Skills
+- Experience
+- Hackathons
+- Projects
+- Reviews and recommendations
+- Contact
+- Resume access via Google Drive
 
-## 🛠 Tech Stack
+## Features
 
-* **Frontend:** React / Next.js (App Router)
-* **Language:** TypeScript
-* **Styling:** Tailwind CSS
-* **Content:** Markdown-based blog system
-* **Data Handling:** Local JSON + utility modules
+- Responsive portfolio built with Next.js App Router
+- Clean single-page experience with section-based navigation
+- Dedicated project detail pages using dynamic routes
+- Resume route that redirects to an external Google Drive link
+- Feedback and recommendation system
+- Contact form support
+- Animated UI with Framer Motion
+- Production-ready deployment on Vercel
 
----
+## Tech Stack
 
-## 📁 Project Structure
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+- Node.js
 
-```
+## Project Structure
+
+```text
 app/
-  page.tsx
+  api/
+    contact/
+    resume/
+    reviews/
+  projects/[slug]/
+  resume/
+  globals.css
   layout.tsx
+  page.tsx
 
 components/
-  Navbar.tsx
-  Hero.tsx
   ContactForm.tsx
+  Hero.tsx
+  Navbar.tsx
   ProjectCard.tsx
   ReviewCard.tsx
-
-content/
-  posts/
-    designing-for-scale.md
-    launching-with-confidence.md
 
 data/
   reviews.json
 
 lib/
-  blog.ts
   projects.ts
   reviews.ts
 ```
 
----
+## Local Development
 
-## ⚙️ Getting Started
+1. Clone the repository
 
-### 1. Clone the repository
-
-```
-git clone https://github.com/your-username/your-portfolio.git
-cd your-portfolio
+```bash
+git clone https://github.com/Aaradhya1998/THEPortfolio.git
+cd THEPortfolio
 ```
 
-### 2. Install dependencies
+2. Install dependencies
 
-```
+```bash
 npm install
 ```
 
-### 3. Run development server
+3. Start the development server
 
-```
+```bash
 npm run dev
 ```
 
-Open:
+4. Open the app in your browser
 
-```
+```text
 http://localhost:3000
 ```
 
----
+## Build for Production
 
-## ✍️ Adding Blog Posts
+```bash
+npm run build
+npm run start
+```
 
-* Add `.md` files inside `content/posts/`
-* Use frontmatter for metadata (title, date, etc.)
+## Current Portfolio Content
 
----
+The current version of the portfolio includes:
 
-## 📬 Contact
+- Internship experience at Cosmolix Private Limited, QSkill, Thiranex, and InAmigos Foundation
+- Projects such as CivicSolve, AutoStream Agent, UIDAI Campaign Predictor, University Complaint Management System, and Gemini Chatbot Assistant
+- Hackathon participation including Smart India Hackathon 2025, UIDAI Government Data Hackathon, Idea 2.0 – Union Bank Hackathon, and a University Hackathon
+- Resume access through an external Google Drive folder link
 
-Feel free to reach out:
+## Deployment
 
-* GitHub: https://github.com/your-username
-* LinkedIn: https://linkedin.com/in/your-profile
+This portfolio is deployed on Vercel.
 
----
+Production URL:
+https://aaradhyashekdar.vercel.app
 
-## 📌 Future Improvements
+## Contact
 
-* Dark mode toggle
-* CMS integration (e.g., Sanity/Contentful)
-* Animations and micro-interactions
-* Project filtering system
+- Email: aaradhya.shek@gmail.com
+- GitHub: https://github.com/Aaradhya1998
+- LinkedIn: https://www.linkedin.com/in/aaradhya-shekdar-724844383/
 
----
+## Notes
 
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
-
+- The blog section has been removed from the current portfolio version.
+- Resume access is handled through an external link instead of a local PDF asset.
+- The content is customized for Aaradhya Shekdar's current academic profile, internships, and project work.
