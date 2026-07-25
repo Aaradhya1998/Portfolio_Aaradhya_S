@@ -10,7 +10,7 @@ export interface ProjectCardProps {
   typeLabel: string;
   featured?: boolean;
   projectUrl: string;
-  demoUrl: string;
+  demoUrl?: string;
 }
 
 export function ProjectCard({ title, description, tech, typeLabel, featured, projectUrl, demoUrl }: ProjectCardProps) {
@@ -42,9 +42,11 @@ export function ProjectCard({ title, description, tech, typeLabel, featured, pro
         <Link href={projectUrl} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-400 to-violet-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:scale-[1.01]">
           View Project
         </Link>
-        <Link href={demoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-300/30 hover:bg-white/10">
-          Live Demo
-        </Link>
+        {demoUrl && (
+          <Link href={demoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-300/30 hover:bg-white/10">
+            Live Demo
+          </Link>
+        )}
       </div>
     </motion.article>
   );

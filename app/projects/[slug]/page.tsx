@@ -55,9 +55,11 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           ))}
         </div>
         <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-          <Link href={project.demoUrl} target="_blank" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-400 to-violet-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:shadow-[0_0_30px_rgba(56,189,248,0.25)]">
-            View Live Demo
-          </Link>
+          {project.demoUrl && (
+            <Link href={project.demoUrl} target="_blank" className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-400 to-violet-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:shadow-[0_0_30px_rgba(56,189,248,0.25)]">
+              View Live Demo
+            </Link>
+          )}
           <Link href={project.projectUrl} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:border-sky-300/30 hover:bg-white/10">
             View Project Repo
           </Link>

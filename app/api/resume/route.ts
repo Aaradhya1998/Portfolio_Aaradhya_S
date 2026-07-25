@@ -2,7 +2,7 @@ import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import { readFile } from 'fs/promises';
 import path from 'path';
 
-const resumeFileName = 'AaradhyaShekdar_Resume.pdf';
+const resumeFileName = 'Aaradhya_Shekdar_Resume.pdf';
 const resumePath = path.join(process.cwd(), 'public', 'resume', resumeFileName);
 
 export async function GET() {
@@ -27,15 +27,15 @@ export async function GET() {
   const bodyFontSize = 12;
 
   page.drawText('Aaradhya Shekdar', { x: 50, y: 770, size: titleFontSize, font: timesRoman, color: rgb(0.92, 0.92, 0.96) });
-  page.drawText('AI and ML Student', { x: 50, y: 744, size: 14, font: timesRoman, color: rgb(0.68, 0.72, 0.94) });
+  page.drawText('ML & Full-Stack Development', { x: 50, y: 744, size: 14, font: timesRoman, color: rgb(0.68, 0.72, 0.94) });
 
   const lines = [
     'Education',
-    'B.Tech CSE - JSPM University',
-    'Learning and making machine learning projects while studying AI architecture.',
+    'B.Tech Computer Science & Engineering - JSPM, Pune | CGPA: 9.01',
+    '2nd Year (3rd Semester) focused on ML and full-stack development.',
     '',
     'Skills',
-    'Python, MySQL, Python Libraries, Machine Learning Projects, AI Architecture'
+    'Python, SQL, HTML, CSS, Flask, Scikit-learn, Google Gemini API, REST APIs'
   ];
 
   let y = 710;
