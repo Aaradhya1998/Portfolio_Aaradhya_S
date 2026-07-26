@@ -5,8 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 
 const fullName = 'Aaradhya Shekdar';
-const resumeUrl = 'https://drive.google.com/drive/folders/1JHN6ZvkKbv-jxXlQpmHAe3MW5KUIOPnq?usp=drive_link';
-
+const resumeUrl = 'https://drive.google.com/file/d/1QrkmofRt1A3AQajgdcGb3b5Vzub-OI5R/view';
 export function Hero() {
   const { scrollY } = useScroll();
   const skyY = useTransform(scrollY, [0, 700], [0, 95]);
