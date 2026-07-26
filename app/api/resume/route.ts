@@ -1,4 +1,4 @@
-const resumeUrl = 'https://drive.google.com/drive/folders/1JHN6ZvkKbv-jxXlQpmHAe3MW5KUIOPnq?usp=drive_link';
+const resumeUrl = 'https://drive.google.com/file/d/1QrkmofRt1A3AQajgdcGb3b5Vzub-OI5R/view';
 
 export async function GET() {
   return Response.redirect(resumeUrl, 307);
