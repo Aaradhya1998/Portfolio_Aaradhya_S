@@ -92,6 +92,27 @@ function CurrentStatusBadge() {
   );
 }
 
+function CertificatePreview({ src, alt }: { src?: string | null; alt: string }) {
+  if (!src || !src.trim()) {
+    return null;
+  }
+
+  return (
+    <Link href={src} target="_blank" rel="noreferrer" className="group mt-6 block max-w-xs">
+      <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60">
+        <img
+          src={src}
+          alt={alt}
+          className="h-40 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+        />
+      </div>
+      <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-500 transition group-hover:text-slate-300">
+        Click preview to enlarge
+      </p>
+    </Link>
+  );
+}
+
 export default function Home() {
   const [reviews, setReviews] = useState<ReviewItem[]>(initialReviews);
   const [reviewStatus, setReviewStatus] = useState<string | null>(null);
@@ -384,6 +405,22 @@ export default function Home() {
                 </div>
                 <p className="text-sm uppercase tracking-[0.22em] text-sky-300">{item.date}</p>
               </div>
+              {item.description && (
+                <p className="mt-5 max-w-4xl leading-7 text-slate-400">{item.description}</p>
+              )}
+              {item.skillsGained && item.skillsGained.length > 0 && (
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {item.skillsGained.map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-slate-200"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <CertificatePreview src={item.previewImage} alt={`${item.name} certificate preview`} />
               <CertificateButton href={item.certificateLink} accentClassName="hover:border-sky-300/35" />
             </motion.article>
           ))}

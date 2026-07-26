@@ -20,7 +20,10 @@ export type CertificationEntry = {
   name: string;
   issuer: string;
   date: string;
+  description?: string;
+  skillsGained?: string[];
   certificateLink?: string | null;
+  previewImage?: string | null;
 };
 
 export const experiences: ExperienceEntry[] = [
@@ -110,9 +113,19 @@ export const hackathons: HackathonEntry[] = [
 
 export const certifications: CertificationEntry[] = [
   {
-    name: '[YOUR WORKSHOP NAME]',
-    issuer: '[ORGANIZER]',
-    date: '[DATE]',
-    certificateLink: '[PASTE DRIVE LINK]'
+    name: '2-Day Cloud and Generative AI Masterclass',
+    issuer: 'OutSkill',
+    date: '25-26 July 2026',
+    description:
+      'A hands-on, intensive workshop focused on practical AI application and system-building, led by Vaibhav Sisinty (Founder, Outskill). The program covered building custom AI assistants for targeted use cases, core AI foundations and generalist thinking, AI-assisted coding practices, and workflow automation using n8n. The focus stayed on applied, project-based learning by moving from AI tool usage to designing functional AI-driven systems and workflows.',
+    skillsGained: [
+      'Custom AI assistant design',
+      'AI-assisted development',
+      'Workflow automation (n8n)',
+      'Prompt engineering',
+      'AI systems thinking'
+    ],
+    certificateLink: '',
+    previewImage: ''
   }
 ];
