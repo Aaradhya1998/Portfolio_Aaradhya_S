@@ -10,6 +10,7 @@ import { Navbar } from '@components/Navbar';
 import { ProjectCard } from '@components/ProjectCard';
 import { ReviewCard } from '@components/ReviewCard';
 import { ContactForm } from '@components/ContactForm';
+import { certifications, experiences, hackathons } from '@data/portfolio';
 import { projects } from '@lib/projects';
 import { initialReviews, type ReviewItem } from '@lib/reviews';
 
@@ -56,86 +57,40 @@ const skillGroups = [
   }
 ];
 
-const experiences = [
-  {
-    label: 'Internship 1',
-    role: 'QA Engineering Intern',
-    company: 'Cosmolix Private Limited',
-    period: 'July 2026 – October 2026',
-    type: 'Quality Assurance & Testing',
-    detail: [
-      'Write comprehensive test cases and suites',
-      'Perform manual and regression testing',
-      'Execute API validation using Postman',
-      'Report and track software bugs in Jira',
-      'Collaborate with developers on issue resolution',
-      'Document QA test summaries and validation logs'
-    ]
-  },
-  {
-    label: 'Internship 2',
-    role: 'Python Development Intern',
-    company: 'QSkill',
-    period: 'April 2026 – July 2026',
-    type: 'Python Development',
-    detail: [
-      'Built a House Price Prediction model using regression with 87% accuracy',
-      'Developed a Gemini-powered chatbot with real-time Bitcoin price and weather API integration',
-      'Completed 3 of 6 Python projects covering automation, scripting, and ML deployment'
-    ]
-  },
-  {
-    label: 'Internship 3',
-    role: 'Data Analysis Intern',
-    company: 'Thiranex',
-    period: 'May 2026',
-    type: 'Data Analysis',
-    detail: [
-      'Performed EDA on a student performance dataset',
-      'Built supervised ML models',
-      'Created dashboards using Pandas, Matplotlib, and Seaborn'
-    ]
-  },
-  {
-    label: 'Internship 4',
-    role: 'Web Development Intern',
-    company: 'InAmigos Foundation',
-    period: 'May 2026',
-    type: 'Web Development',
-    detail: [
-      'Designed NGO website prototype in Figma and HTML',
-      'Audited the live website and documented usability improvements'
-    ]
-  }
-];
-
-const hackathons = [
-  {
-    title: 'Smart India Hackathon (SIH) 2025',
-    subtitle: 'Selected at college level',
-    detail: 'Built a Kolam Design Generator using generative AI for the traditional arts domain.'
-  },
-  {
-    title: 'UIDAI Government Data Hackathon',
-    subtitle: 'National level',
-    detail: 'Built the UIDAI Campaign Predictor machine learning pipeline.'
-  },
-  {
-    title: 'Idea 2.0 – Union Bank Hackathon',
-    subtitle: 'Hackathon proposal',
-    detail: 'Proposed an AI chatbot integrated with SMS Banking and an accessible ATM UI for financial inclusion.'
-  },
-  {
-    title: 'University Hackathon',
-    subtitle: 'Prototype to product journey',
-    detail: 'Built an AI-driven civic complaint system that was later upgraded into CivicSolve.'
-  }
-];
-
 const reveal = {
   hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0 }
 };
+
+function hasCertificateLink(link?: string | null) {
+  return Boolean(link && link.trim().length > 0 && !link.includes('[PASTE DRIVE LINK]'));
+}
+
+function CertificateButton({ href, accentClassName }: { href?: string | null; accentClassName: string }) {
+  if (!hasCertificateLink(href)) {
+    return null;
+  }
+
+  return (
+    <Link
+      href={href!}
+      target="_blank"
+      rel="noreferrer"
+      className={`mt-4 inline-flex rounded-full border border-white/12 bg-transparent px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-slate-300 transition hover:text-white ${accentClassName}`}
+    >
+      View Certificate
+    </Link>
+  );
+}
+
+function CurrentStatusBadge() {
+  return (
+    <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-rose-400/25 bg-rose-500/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-rose-200">
+      <span className="h-2.5 w-2.5 rounded-full bg-rose-400 shadow-[0_0_14px_rgba(251,113,133,0.95)]" />
+      Currently working
+    </div>
+  );
+}
 
 export default function Home() {
   const [reviews, setReviews] = useState<ReviewItem[]>(initialReviews);
@@ -189,7 +144,7 @@ export default function Home() {
           className="mb-10 max-w-4xl"
         >
           <span className="text-sm uppercase tracking-[0.26em] text-amber-200">About me</span>
-          <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">Aaradhya Shekdar — ML and full-stack focused, with a practical builder mindset.</h2>
+          <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">Aaradhya Shekdar - ML and full-stack focused, with a practical builder mindset.</h2>
           <p className="mt-5 leading-8 text-slate-300">
             I&apos;m Aaradhya Shekdar, a B.Tech Computer Science &amp; Engineering student at JSPM, Pune. I&apos;m currently in my 2nd Year (3rd Semester) with a CGPA of 9.01, focused on ML and full-stack development. I enjoy building useful systems that combine machine learning, APIs, clean interfaces, and real-world problem solving.
           </p>
@@ -333,11 +288,16 @@ export default function Home() {
                       <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-400">
                         {item.detail.map((point) => (
                           <li key={point} className="flex gap-2">
-                            <span className="mt-1 text-cyan-200">•</span>
+                            <span className="mt-1 text-cyan-200">&bull;</span>
                             <span>{point}</span>
                           </li>
                         ))}
                       </ul>
+                      {item.currentlyWorking ? (
+                        <CurrentStatusBadge />
+                      ) : (
+                        <CertificateButton href={item.certificateLink} accentClassName="hover:border-cyan-200/35" />
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -384,6 +344,47 @@ export default function Home() {
                 </span>
               </div>
               <p className="mt-5 leading-7 text-slate-400">{item.detail}</p>
+              <CertificateButton href={item.certificateLink} accentClassName="hover:border-violet-200/35" />
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section id="certifications" className="relative mx-auto max-w-6xl px-6 pb-20 sm:px-8 lg:px-12">
+        <motion.div
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="mb-10 max-w-3xl"
+        >
+          <span className="text-sm uppercase tracking-[0.26em] text-sky-300">Certifications</span>
+          <h2 className="mt-4 text-4xl font-semibold text-white sm:text-5xl">Standalone workshops, courses, and credentialed learning.</h2>
+          <p className="mt-5 leading-7 text-slate-400">
+            This section is driven by a simple array so you can add more certificate entries without touching the UI.
+          </p>
+        </motion.div>
+
+        <div className="grid gap-5">
+          {certifications.map((item, index) => (
+            <motion.article
+              key={`${item.name}-${item.issuer}`}
+              variants={reveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.08, ease: 'easeOut' }}
+              className="reveal-card rounded-3xl p-7"
+            >
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <h3 className="text-2xl font-semibold text-white">{item.name}</h3>
+                  <p className="mt-2 text-slate-300">Issued by {item.issuer}</p>
+                </div>
+                <p className="text-sm uppercase tracking-[0.22em] text-sky-300">{item.date}</p>
+              </div>
+              <CertificateButton href={item.certificateLink} accentClassName="hover:border-sky-300/35" />
             </motion.article>
           ))}
         </div>
