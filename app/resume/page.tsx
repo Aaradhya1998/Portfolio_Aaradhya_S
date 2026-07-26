@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-const resumeUrl = 'https://docs.google.com/document/d/1U_jnN_ss3mg9ttI8EwCeQvZE1kdYsPe4/edit?usp=drive_link&ouid=103651636877154607130&rtpof=true&sd=true';
+const resumeUrl = 'https://drive.google.com/file/d/1QrkmofRt1A3AQajgdcGb3b5Vzub-OI5R/view?usp=drive_link';
 export default function ResumePage() {
   redirect(resumeUrl);
 }
