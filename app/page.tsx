@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Brain, BriefcaseBusiness, Code2, Globe2, MessageSquareQuote, Rocket, Trophy, Wrench } from 'lucide-react';
+import { Brain, BriefcaseBusiness, Code2, Globe2, MessageSquareQuote, Rocket, Trophy, Wrench, X } from 'lucide-react';
 
 import { Hero } from '@components/Hero';
 import { Navbar } from '@components/Navbar';
@@ -113,9 +113,90 @@ function CertificatePreview({ src, alt }: { src?: string | null; alt: string }) 
   );
 }
 
+function OutskillCertificatePreview({
+  onOpen
+}: {
+  onOpen: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="group mt-6 block w-[140px] text-left sm:w-[170px]"
+      aria-label="Open certificate preview"
+    >
+      <div className="overflow-hidden rounded-xl border border-lime-300/20 bg-[#031d07] shadow-[0_10px_24px_rgba(0,0,0,0.28)] transition duration-300 group-hover:-translate-y-1 group-hover:border-lime-300/35">
+        <div className="relative aspect-[16/10] w-full overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(160,255,68,0.08)_0,rgba(160,255,68,0.08)_28%,transparent_30%)] bg-[length:24px_24px] opacity-60" />
+          <div className="absolute left-0 top-0 h-full w-1.5 bg-[#f1f51f]" />
+
+          <div className="relative z-10 flex h-full flex-col justify-between p-2.5">
+            <div>
+              <div className="flex items-center gap-1.5 text-white">
+                <div className="grid grid-cols-3 gap-[2px]">
+                  {Array.from({ length: 9 }).map((_, index) => (
+                    <span key={index} className="h-1 w-1 rounded-full bg-[#d8ff66]" />
+                  ))}
+                </div>
+                <span className="text-[7px] font-medium">Outskill</span>
+              </div>
+
+              <h3 className="mt-3 font-serif text-[8px] leading-tight text-white">Certificate of Completion</h3>
+              <p className="mt-1.5 text-[4.5px] text-white/75">Proudly presented to</p>
+              <p className="mt-1 text-[7px] font-semibold text-white">Aaradhya Shekdar</p>
+              <div className="mt-1 h-px w-full max-w-[84px] bg-white/20" />
+              <p className="mt-1.5 text-[4.5px] leading-tight text-white/80">
+                for successfully completing <span className="font-semibold text-white">Generative AI Mastermind</span>
+              </p>
+            </div>
+
+            <div className="flex items-end justify-between gap-1.5">
+              <div>
+                <p className="font-serif text-[5px] italic text-white/90">Vaibhav Sisinty</p>
+                <p className="mt-0.5 text-[4.5px] font-semibold text-white">Vaibhav Sisinty</p>
+                <p className="text-[4.5px] text-white/70">Founder, Outskill</p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-1">
+                {[
+                  'bg-white',
+                  'bg-white',
+                  'diamond',
+                  'bg-lime-300',
+                  'bg-lime-300',
+                  'bg-lime-300',
+                  'bg-lime-300',
+                  'bg-lime-300',
+                  'bg-white'
+                ].map((item, index) =>
+                  item === 'diamond' ? (
+                    <span
+                      key={index}
+                      className="relative m-auto h-1.5 w-1.5 rotate-45 rounded-[1px] bg-white"
+                    />
+                  ) : (
+                    <span
+                      key={index}
+                      className={`h-2.5 w-2.5 rounded-full ${item}`}
+                    />
+                  )
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-500 transition group-hover:text-slate-300">
+        Click preview to enlarge
+      </p>
+    </button>
+  );
+}
+
 export default function Home() {
   const [reviews, setReviews] = useState<ReviewItem[]>(initialReviews);
   const [reviewStatus, setReviewStatus] = useState<string | null>(null);
+  const [isCertificateOpen, setIsCertificateOpen] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -150,10 +231,28 @@ export default function Home() {
     setReviewStatus(params.get('review'));
   }, []);
 
+  useEffect(() => {
+    if (!isCertificateOpen) {
+      return;
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsCertificateOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isCertificateOpen]);
+
   return (
-    <main className="story-shell relative min-h-screen overflow-hidden pb-24">
-      <Navbar />
-      <Hero />
+    <>
+      <main className="story-shell relative min-h-screen overflow-hidden pb-24">
+        <Navbar />
+        <Hero />
 
       <section id="about" className="relative mx-auto max-w-6xl px-6 pb-20 sm:px-8 lg:px-12">
         <motion.div
@@ -420,7 +519,11 @@ export default function Home() {
                   ))}
                 </div>
               )}
-              <CertificatePreview src={item.previewImage} alt={`${item.name} certificate preview`} />
+              {item.previewVariant === 'outskill-masterclass' ? (
+                <OutskillCertificatePreview onOpen={() => setIsCertificateOpen(true)} />
+              ) : (
+                <CertificatePreview src={item.previewImage} alt={`${item.name} certificate preview`} />
+              )}
               <CertificateButton href={item.certificateLink} accentClassName="hover:border-sky-300/35" />
             </motion.article>
           ))}
@@ -517,16 +620,97 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="border-t border-white/10 bg-slate-950/60 py-8 text-slate-400">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
-          <p>&copy; 2026 Aaradhya Shekdar - ML, full-stack development, and practical AI builds.</p>
-          <div className="flex items-center gap-4">
-            <Link href="https://github.com/Aaradhya1998" target="_blank">GitHub</Link>
-            <Link href="https://www.linkedin.com/in/aaradhya-shekdar-724844383/" target="_blank">LinkedIn</Link>
-            <Link href="https://www.instagram.com/aaradhyashekdar/" target="_blank">Instagram</Link>
+        <footer className="border-t border-white/10 bg-slate-950/60 py-8 text-slate-400">
+          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+            <p>&copy; 2026 Aaradhya Shekdar - ML, full-stack development, and practical AI builds.</p>
+            <div className="flex items-center gap-4">
+              <Link href="https://github.com/Aaradhya1998" target="_blank">GitHub</Link>
+              <Link href="https://www.linkedin.com/in/aaradhya-shekdar-724844383/" target="_blank">LinkedIn</Link>
+              <Link href="https://www.instagram.com/aaradhyashekdar/" target="_blank">Instagram</Link>
+            </div>
+          </div>
+        </footer>
+      </main>
+
+      {isCertificateOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-sm"
+          onClick={() => setIsCertificateOpen(false)}
+        >
+          <div className="relative w-full max-w-5xl" onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              onClick={() => setIsCertificateOpen(false)}
+              className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-slate-950/75 text-white transition hover:bg-slate-900"
+              aria-label="Close certificate preview"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="overflow-hidden rounded-[2rem] border border-lime-300/20 bg-[#031d07] shadow-[0_30px_100px_rgba(0,0,0,0.55)]">
+              <div className="relative aspect-video w-full overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(160,255,68,0.08)_0,rgba(160,255,68,0.08)_28%,transparent_30%)] bg-[length:72px_72px] opacity-60" />
+                <div className="absolute left-0 top-0 h-full w-3 bg-[#f1f51f]" />
+
+                <div className="relative z-10 flex h-full flex-col justify-between p-5 sm:p-8 lg:p-12">
+                  <div>
+                    <div className="flex items-center gap-4 text-white">
+                      <div className="grid grid-cols-3 gap-1.5">
+                        {Array.from({ length: 9 }).map((_, index) => (
+                          <span key={index} className="h-3 w-3 rounded-full bg-[#d8ff66]" />
+                        ))}
+                      </div>
+                      <span className="text-2xl font-medium sm:text-4xl">Outskill</span>
+                    </div>
+
+                    <h3 className="mt-6 font-serif text-xl text-white sm:mt-10 sm:text-4xl lg:text-5xl">Certificate of Completion</h3>
+                    <p className="mt-4 text-xs text-white/75 sm:text-sm">Proudly presented to</p>
+                    <p className="mt-2 text-lg font-semibold text-white sm:text-3xl lg:text-4xl">Aaradhya Shekdar</p>
+                    <div className="mt-2 h-px w-full max-w-[420px] bg-white/20" />
+                    <p className="mt-4 text-xs text-white/80 sm:text-base lg:text-lg">
+                      for successfully completing <span className="font-semibold text-white">Generative AI Mastermind</span>
+                    </p>
+                  </div>
+
+                  <div className="flex items-end justify-between gap-6">
+                    <div>
+                      <p className="font-serif text-lg italic text-white/90 sm:text-3xl lg:text-4xl">Vaibhav Sisinty</p>
+                      <p className="mt-2 text-xs font-semibold text-white sm:text-lg">Vaibhav Sisinty</p>
+                      <p className="text-xs text-white/70 sm:text-base">Founder, Outskill</p>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-3 sm:gap-5">
+                      {[
+                        'bg-white',
+                        'bg-white',
+                        'diamond',
+                        'bg-lime-300',
+                        'bg-lime-300',
+                        'bg-lime-300',
+                        'bg-lime-300',
+                        'bg-lime-300',
+                        'bg-white'
+                      ].map((item, index) =>
+                        item === 'diamond' ? (
+                          <span
+                            key={index}
+                            className="relative m-auto h-5 w-5 rotate-45 rounded-[3px] bg-white sm:h-9 sm:w-9 lg:h-11 lg:w-11"
+                          />
+                        ) : (
+                          <span
+                            key={index}
+                            className={`h-6 w-6 rounded-full sm:h-10 sm:w-10 lg:h-12 lg:w-12 ${item}`}
+                          />
+                        )
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </footer>
-    </main>
+      )}
+    </>
   );
 }

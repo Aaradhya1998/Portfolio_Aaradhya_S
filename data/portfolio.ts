@@ -24,6 +24,7 @@ export type CertificationEntry = {
   skillsGained?: string[];
   certificateLink?: string | null;
   previewImage?: string | null;
+  previewVariant?: 'outskill-masterclass';
 };
 
 export const experiences: ExperienceEntry[] = [
@@ -126,6 +127,7 @@ export const certifications: CertificationEntry[] = [
       'AI systems thinking'
     ],
     certificateLink: '',
-    previewImage: ''
+    previewImage: '',
+    previewVariant: 'outskill-masterclass'
   }
 ];
