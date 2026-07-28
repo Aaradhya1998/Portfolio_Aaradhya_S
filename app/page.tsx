@@ -637,11 +637,20 @@ export default function Home() {
           className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-sm"
           onClick={() => setIsCertificateOpen(false)}
         >
+          <button
+            type="button"
+            onClick={() => setIsCertificateOpen(false)}
+            className="fixed right-4 top-4 z-[60] inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-slate-950/85 text-white transition hover:bg-slate-900 sm:right-6 sm:top-6"
+            aria-label="Close certificate preview"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
           <div className="relative w-full max-w-5xl" onClick={(event) => event.stopPropagation()}>
             <button
               type="button"
               onClick={() => setIsCertificateOpen(false)}
-              className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-slate-950/75 text-white transition hover:bg-slate-900"
+              className="absolute right-3 top-3 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-slate-950/85 text-white transition hover:bg-slate-900"
               aria-label="Close certificate preview"
             >
               <X className="h-5 w-5" />
