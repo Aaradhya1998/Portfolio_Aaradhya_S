@@ -36,7 +36,7 @@ export function Hero() {
               Hi, I&apos;m {fullName}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/90 sm:text-xl">
-              B.Tech Computer Science &amp; Engineering student focused on ML and full-stack development, building practical products with data, APIs, and intelligent workflows.
+              B.Tech Computer Science &amp; Engineering student focused on Machine Learning and QA Engineering, building practical products with data, APIs, and intelligent workflows.
             </p>
             <div className="mt-6 flex flex-wrap gap-3 text-sm text-white/85">
               <span className="rounded-full border border-white/20 bg-slate-950/20 px-4 py-2 backdrop-blur-md">JSPM, Pune • CGPA 9.01</span>
@@ -63,7 +63,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.35, ease: 'easeOut' }}
           className="grid max-w-3xl gap-3 sm:grid-cols-3"
         >
-          {['Machine Learning', 'Full-Stack Development', 'Quality Assurance'].map((item) => (
+          {['Machine Learning', 'Quality Assurance', 'Data Analysis'].map((item) => (
             <div key={item} className="rounded-2xl border border-white/20 bg-slate-950/20 px-4 py-3 text-sm font-medium text-white shadow-soft backdrop-blur-md">
               {item}
             </div>

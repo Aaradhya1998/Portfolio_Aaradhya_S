@@ -47,6 +47,19 @@ export const experiences: ExperienceEntry[] = [
   },
   {
     label: 'Internship 2',
+    role: 'Machine Learning Intern',
+    company: 'Suvidha Foundation',
+    period: 'June 2026 - August 2026',
+    type: 'Machine Learning',
+    detail: [
+      'Contributed to an AI-powered dental health diagnostic initiative (with Code Karo Yaaro)',
+      'Curated and labelled dental image datasets to train classification models',
+      'Reviewed relevant research literature to inform model design and classification approach'
+    ],
+    certificateLink: '/internships/SuvidhaFoundationCertificate.jpg'
+  },
+  {
+    label: 'Internship 3',
     role: 'Python Development Intern',
     company: 'QSkill',
     period: 'April 2026 - July 2026',
@@ -56,10 +69,10 @@ export const experiences: ExperienceEntry[] = [
       'Developed a Gemini-powered chatbot with real-time Bitcoin price and weather API integration',
       'Completed 3 of 6 Python projects covering automation, scripting, and ML deployment'
     ],
-    certificateLink: 'https://drive.google.com/file/d/1kttlwf4ANvWKSZUhxhVid5nXjEUGBC2r/view?usp=drive_link'
+    certificateLink: '/internships/QSKILL_Certificate.jpeg'
   },
   {
-    label: 'Internship 3',
+    label: 'Internship 4',
     role: 'Data Analysis Intern',
     company: 'Thiranex',
     period: 'May 2026',
@@ -69,10 +82,10 @@ export const experiences: ExperienceEntry[] = [
       'Built supervised ML models',
       'Created dashboards using Pandas, Matplotlib, and Seaborn'
     ],
-    certificateLink: 'https://drive.google.com/file/d/1brWefSEBbGOsKYxL1jisLRNc4PVc7azS/view?usp=drive_link'
+    certificateLink: '/internships/Thiranx_Internship_Certificate.png'
   },
   {
-    label: 'Internship 4',
+    label: 'Internship 5',
     role: 'Web Development Intern',
     company: 'InAmigos Foundation',
     period: 'May 2026',
@@ -81,7 +94,7 @@ export const experiences: ExperienceEntry[] = [
       'Designed NGO website prototype in Figma and HTML',
       'Audited the live website and documented usability improvements'
     ],
-    certificateLink: 'https://drive.google.com/file/d/1KjSi98cRqiwHImh7ZElF9RIlJ4rifaw2/view?usp=drive_link'
+    certificateLink: '/internships/InAmigos_Internship_Certificate.png'
   }
 ];
 
@@ -129,5 +142,39 @@ export const certifications: CertificationEntry[] = [
     certificateLink: '',
     previewImage: '',
     previewVariant: 'outskill-masterclass'
+  },
+  {
+    name: 'Designing Scalable RAG Pipelines',
+    issuer: 'Scaler Masterclass',
+    date: '11 August 2026',
+    description:
+      'Participated in Scaler Masterclass on designing scalable Retrieval-Augmented Generation (RAG) pipelines, focused on approaches for building reliable, knowledge-grounded AI systems.',
+    certificateLink: '',
+    previewImage: '/certificates/scaler-designing-scalable-rag-pipelines.png'
+  },
+  {
+    name: '30 Days Python Micro Course',
+    issuer: 'SkillCourse',
+    date: '16 August 2026',
+    description:
+      'A day-by-day Python course progressing from core fundamentals (variables, data types, operators, control flow, loops) through data structures (lists, tuples, dicts, sets) and functions, into file handling and CSV I/O, then NumPy and Pandas for data cleaning, analysis, grouping, and filtering — finishing with AI-assisted automation, AI-generated pipeline automation, and a capstone AI-powered Python data analysis project.',
+    skillsGained: [
+      'Python Fundamentals',
+      'Data Structures',
+      'File Handling & CSV I/O',
+      'NumPy & Pandas',
+      'Data Cleaning & Analysis',
+      'AI-Assisted Automation'
+    ],
+    certificateLink: '',
+    previewImage: '/certificates/skillcourse-python-micro-course.png'
+  },
+  {
+    name: 'Generative AI Mastermind',
+    issuer: 'Outskill',
+    date: '',
+    description: 'Certificate of Completion',
+    certificateLink: '',
+    previewImage: ''
   }
 ];
