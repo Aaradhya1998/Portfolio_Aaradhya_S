@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 
 const fullName = 'Aaradhya Shekdar';
-const resumeUrl = 'https://drive.google.com/file/d/1QrkmofRt1A3AQajgdcGb3b5Vzub-OI5R/view';
+const resumeUrl = 'https://drive.google.com/file/d/19UUqgrWP5da_vgipABG-8PP440M9lzT1/view';
 export function Hero() {
   const { scrollY } = useScroll();
   const skyY = useTransform(scrollY, [0, 700], [0, 95]);
@@ -30,7 +30,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
           className="max-w-4xl"
         >
-          
+
           <div className="mt-8 max-w-3xl text-white drop-shadow-[0_10px_35px_rgba(61,28,14,0.35)]">
             <h1 className="text-5xl font-semibold text-white sm:text-6xl lg:text-7xl">
               Hi, I&apos;m {fullName}

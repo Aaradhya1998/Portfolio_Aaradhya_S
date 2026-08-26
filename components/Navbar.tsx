@@ -13,7 +13,7 @@ const navItems = [
   { label: 'Contact', href: '#contact' }
 ];
 
-const resumeUrl = 'https://drive.google.com/file/d/1QrkmofRt1A3AQajgdcGb3b5Vzub-OI5R/view';
+const resumeUrl = 'https://drive.google.com/file/d/19UUqgrWP5da_vgipABG-8PP440M9lzT1/view';
 
 export function Navbar() {
   return (
