@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
+import { resumeUrl } from '@data/portfolio';
 
 const fullName = 'Aaradhya Shekdar';
-const resumeUrl = 'https://drive.google.com/file/d/19UUqgrWP5da_vgipABG-8PP440M9lzT1/view';
 export function Hero() {
   const { scrollY } = useScroll();
   const skyY = useTransform(scrollY, [0, 700], [0, 95]);

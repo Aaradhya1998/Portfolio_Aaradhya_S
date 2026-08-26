@@ -27,6 +27,8 @@ export type CertificationEntry = {
   previewVariant?: 'outskill-masterclass';
 };
 
+export const resumeUrl = 'https://drive.google.com/file/d/19UUqgrWP5da_vgipABG-8PP440M9lzT1/view';
+
 export const experiences: ExperienceEntry[] = [
   {
     label: 'Internship 1',
@@ -168,13 +170,5 @@ export const certifications: CertificationEntry[] = [
     ],
     certificateLink: '',
     previewImage: '/certificates/skillcourse-python-micro-course.png'
-  },
-  {
-    name: 'Generative AI Mastermind',
-    issuer: 'Outskill',
-    date: '',
-    description: 'Certificate of Completion',
-    certificateLink: '',
-    previewImage: ''
   }
 ];

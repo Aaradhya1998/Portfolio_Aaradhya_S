@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Github, Instagram, Linkedin } from 'lucide-react';
+import { resumeUrl } from '@data/portfolio';
 
 const navItems = [
   { label: 'About', href: '#about' },
@@ -12,8 +13,6 @@ const navItems = [
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' }
 ];
-
-const resumeUrl = 'https://drive.google.com/file/d/19UUqgrWP5da_vgipABG-8PP440M9lzT1/view';
 
 export function Navbar() {
   return (
