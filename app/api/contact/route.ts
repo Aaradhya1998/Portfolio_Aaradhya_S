@@ -1,6 +1,3 @@
-// Requires env var: RESEND_API_KEY
-// Get it free at https://resend.com → API Keys
-// Add to Vercel: Project Settings → Environment Variables → RESEND_API_KEY
 
 import { NextResponse } from 'next/server';
 
@@ -26,7 +23,7 @@ export async function POST(request: Request) {
         Authorization: `Bearer ${resendApiKey}`,
       },
       body: JSON.stringify({
-        from: 'portfolio@resend.dev',
+        from: 'onboarding@resend.dev',
         to: 'aaradhya.shek@gmail.com',
         subject: `Portfolio contact from ${name}`,
         reply_to: email,
