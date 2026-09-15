@@ -1,36 +1,55 @@
-import fs from 'fs/promises';
-import path from 'path';
+// Requires env var: RESEND_API_KEY
+// Get it free at https://resend.com → API Keys
+// Add to Vercel: Project Settings → Environment Variables → RESEND_API_KEY
+
 import { NextResponse } from 'next/server';
 
-const reviewsFile = path.join(process.cwd(), 'data', 'reviews.json');
-
-export async function GET() {
-  const raw = await fs.readFile(reviewsFile, 'utf-8');
-  return NextResponse.json(JSON.parse(raw));
-}
-
 export async function POST(request: Request) {
-  const body = await request.formData();
-  const name = body.get('name')?.toString().trim();
-  const role = body.get('role')?.toString().trim();
-  const organization = body.get('organization')?.toString().trim();
-  const profileUrl = body.get('profileUrl')?.toString().trim();
-  const message = body.get('message')?.toString().trim();
+  try {
+    const body = await request.json();
+    const { name, role, company, rating, message } = body;
 
-  if (!name || !role || !message) {
-    return NextResponse.redirect(new URL('/?review=invalid', request.url));
+    if (!name || !role || !company || rating === undefined || rating === null || rating === '' || !message) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      console.error('RESEND_API_KEY is not configured');
+      return NextResponse.json({ error: 'Failed to send' }, { status: 500 });
+    }
+
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify({
+        from: 'portfolio@resend.dev',
+        to: 'aaradhya.shek@gmail.com',
+        subject: `New Portfolio Review from ${name}`,
+        html: `
+          <h2>New Portfolio Review</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Role:</strong> ${role}</p>
+          <p><strong>Company:</strong> ${company}</p>
+          <p><strong>Rating:</strong> ${rating}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        `,
+      }),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.text();
+      console.error('Resend API error:', errorData);
+      return NextResponse.json({ error: 'Failed to send' }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch (error) {
+    console.error('Error submitting review:', error);
+    return NextResponse.json({ error: 'Failed to send' }, { status: 500 });
   }
-
-  const raw = await fs.readFile(reviewsFile, 'utf-8');
-  const reviews = JSON.parse(raw) as Array<Record<string, string>>;
-  reviews.unshift({
-    name,
-    role,
-    organization: organization ?? '',
-    profileUrl: profileUrl ?? '',
-    message
-  });
-  await fs.writeFile(reviewsFile, JSON.stringify(reviews, null, 2), 'utf-8');
-
-  return NextResponse.redirect(new URL('/?review=thanks', request.url));
 }
