@@ -23,7 +23,7 @@ export async function POST(request: Request) {
         Authorization: `Bearer ${resendApiKey}`,
       },
       body: JSON.stringify({
-        from: 'onbording@resend.dev',
+        from: 'onboarding@resend.dev',
         to: 'aaradhya.shek@gmail.com',
         subject: `New Portfolio Review from ${name}`,
         html: `
