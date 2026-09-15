@@ -1,12 +1,40 @@
-
 import { NextResponse } from 'next/server';
+import { initialReviews } from '@/lib/reviews';
+
+export async function GET() {
+  return NextResponse.json(initialReviews);
+}
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { name, role, company, rating, message } = body;
+    let name = '';
+    let role = '';
+    let company = '';
+    let rating = '';
+    let message = '';
+    let profileUrl = '';
 
-    if (!name || !role || !company || rating === undefined || rating === null || rating === '' || !message) {
+    const contentType = request.headers.get('content-type') || '';
+
+    if (contentType.includes('application/json')) {
+      const body = await request.json();
+      name = body.name?.toString().trim() || '';
+      role = body.role?.toString().trim() || '';
+      company = (body.company || body.organization)?.toString().trim() || '';
+      rating = body.rating !== undefined && body.rating !== null ? body.rating.toString().trim() : '';
+      message = body.message?.toString().trim() || '';
+      profileUrl = body.profileUrl?.toString().trim() || '';
+    } else {
+      const formData = await request.formData();
+      name = formData.get('name')?.toString().trim() || '';
+      role = formData.get('role')?.toString().trim() || '';
+      company = (formData.get('company') || formData.get('organization'))?.toString().trim() || '';
+      rating = formData.get('rating')?.toString().trim() || '';
+      message = formData.get('message')?.toString().trim() || '';
+      profileUrl = formData.get('profileUrl')?.toString().trim() || '';
+    }
+
+    if (!name || !role || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -15,6 +43,17 @@ export async function POST(request: Request) {
       console.error('RESEND_API_KEY is not configured');
       return NextResponse.json({ error: 'Failed to send' }, { status: 500 });
     }
+
+    const htmlContent = `
+      <h2>New Portfolio Review</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Role:</strong> ${role}</p>
+      ${company ? `<p><strong>Company / Organization:</strong> ${company}</p>` : ''}
+      ${rating ? `<p><strong>Rating:</strong> ${rating}</p>` : ''}
+      ${profileUrl ? `<p><strong>Profile / LinkedIn:</strong> <a href="${profileUrl}">${profileUrl}</a></p>` : ''}
+      <p><strong>Message:</strong></p>
+      <p>${message}</p>
+    `;
 
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -26,15 +65,7 @@ export async function POST(request: Request) {
         from: 'onboarding@resend.dev',
         to: 'aaradhya.shek@gmail.com',
         subject: `New Portfolio Review from ${name}`,
-        html: `
-          <h2>New Portfolio Review</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Role:</strong> ${role}</p>
-          <p><strong>Company:</strong> ${company}</p>
-          <p><strong>Rating:</strong> ${rating}</p>
-          <p><strong>Message:</strong></p>
-          <p>${message}</p>
-        `,
+        html: htmlContent,
       }),
     });
 

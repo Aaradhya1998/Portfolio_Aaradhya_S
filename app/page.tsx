@@ -231,6 +231,14 @@ function OutskillCertificatePreview({
 export default function Home() {
   const [reviews, setReviews] = useState<ReviewItem[]>(initialReviews);
   const [reviewStatus, setReviewStatus] = useState<string | null>(null);
+  const [reviewForm, setReviewForm] = useState({
+    name: '',
+    role: '',
+    organization: '',
+    profileUrl: '',
+    message: ''
+  });
+  const [isReviewSubmitting, setIsReviewSubmitting] = useState(false);
   const [activeCertificateModal, setActiveCertificateModal] = useState<
     { type: 'outskill' } | { type: 'image'; src: string; alt: string } | null
   >(null);
@@ -265,8 +273,55 @@ export default function Home() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setReviewStatus(params.get('review'));
+    if (params.get('review')) {
+      setReviewStatus(params.get('review'));
+    }
   }, []);
+
+  const handleReviewSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!reviewForm.name || !reviewForm.role || !reviewForm.message) {
+      setReviewStatus('invalid');
+      return;
+    }
+
+    setIsReviewSubmitting(true);
+    setReviewStatus(null);
+
+    try {
+      const response = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: reviewForm.name,
+          role: reviewForm.role,
+          company: reviewForm.organization,
+          organization: reviewForm.organization,
+          profileUrl: reviewForm.profileUrl,
+          message: reviewForm.message
+        })
+      });
+
+      if (response.ok) {
+        setReviewStatus('thanks');
+        setReviewForm({
+          name: '',
+          role: '',
+          organization: '',
+          profileUrl: '',
+          message: ''
+        });
+      } else {
+        setReviewStatus('error');
+      }
+    } catch {
+      setReviewStatus('error');
+    } finally {
+      setIsReviewSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     if (!activeCertificateModal) {
@@ -626,7 +681,7 @@ export default function Home() {
             <p className="mt-2 text-slate-400">If we&apos;ve worked together on a project, hackathon, or academic work, I&apos;d really appreciate your feedback.</p>
             {reviewStatus === 'thanks' && (
               <p className="mt-4 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
-                Thanks. Your review was submitted and now appears in the testimonial list.
+                Thanks. Your review was submitted and received.
               </p>
             )}
             {reviewStatus === 'invalid' && (
@@ -634,14 +689,58 @@ export default function Home() {
                 Please complete name, role, and message before submitting.
               </p>
             )}
-            <form action="/api/reviews" method="post" className="mt-6 grid gap-4 sm:grid-cols-2">
-              <input required name="name" placeholder="Name" className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none" />
-              <input required name="role" placeholder="Role (e.g., teammate, mentor)" className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none" />
-              <input name="organization" placeholder="Organization / College (optional)" className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none sm:col-span-2" />
-              <input type="url" name="profileUrl" placeholder="LinkedIn URL (optional)" className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none sm:col-span-2" />
-              <textarea required name="message" rows={4} placeholder="Message" className="sm:col-span-2 rounded-[1.5rem] border border-white/10 bg-slate-900/85 px-4 py-4 text-white outline-none" />
-              <button type="submit" className="sm:col-span-2 inline-flex justify-center rounded-full bg-gradient-to-r from-violet-500 to-sky-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:shadow-[0_0_30px_rgba(56,189,248,0.25)]">
-                Submit Review
+            {reviewStatus === 'error' && (
+              <p className="mt-4 rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm text-rose-200">
+                Something went wrong. Please try again later.
+              </p>
+            )}
+            <form onSubmit={handleReviewSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
+              <input
+                required
+                name="name"
+                value={reviewForm.name}
+                onChange={(e) => setReviewForm((prev) => ({ ...prev, name: e.target.value }))}
+                placeholder="Name"
+                className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none"
+              />
+              <input
+                required
+                name="role"
+                value={reviewForm.role}
+                onChange={(e) => setReviewForm((prev) => ({ ...prev, role: e.target.value }))}
+                placeholder="Role (e.g., teammate, mentor)"
+                className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none"
+              />
+              <input
+                name="organization"
+                value={reviewForm.organization}
+                onChange={(e) => setReviewForm((prev) => ({ ...prev, organization: e.target.value }))}
+                placeholder="Organization / College (optional)"
+                className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none sm:col-span-2"
+              />
+              <input
+                type="url"
+                name="profileUrl"
+                value={reviewForm.profileUrl}
+                onChange={(e) => setReviewForm((prev) => ({ ...prev, profileUrl: e.target.value }))}
+                placeholder="LinkedIn URL (optional)"
+                className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none sm:col-span-2"
+              />
+              <textarea
+                required
+                name="message"
+                rows={4}
+                value={reviewForm.message}
+                onChange={(e) => setReviewForm((prev) => ({ ...prev, message: e.target.value }))}
+                placeholder="Message"
+                className="sm:col-span-2 rounded-[1.5rem] border border-white/10 bg-slate-900/85 px-4 py-4 text-white outline-none"
+              />
+              <button
+                type="submit"
+                disabled={isReviewSubmitting}
+                className="sm:col-span-2 inline-flex justify-center rounded-full bg-gradient-to-r from-violet-500 to-sky-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:shadow-[0_0_30px_rgba(56,189,248,0.25)] disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {isReviewSubmitting ? 'Submitting...' : 'Submit Review'}
               </button>
             </form>
           </motion.div>

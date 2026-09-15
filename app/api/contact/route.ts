@@ -1,10 +1,23 @@
-
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { name, email, message } = body;
+    let name = '';
+    let email = '';
+    let message = '';
+
+    const contentType = request.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      const body = await request.json();
+      name = body.name?.toString().trim() || '';
+      email = body.email?.toString().trim() || '';
+      message = body.message?.toString().trim() || '';
+    } else {
+      const formData = await request.formData();
+      name = formData.get('name')?.toString().trim() || '';
+      email = formData.get('email')?.toString().trim() || '';
+      message = formData.get('message')?.toString().trim() || '';
+    }
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
