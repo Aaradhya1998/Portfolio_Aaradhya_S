@@ -71,7 +71,7 @@ export const experiences: ExperienceEntry[] = [
       'Developed a Gemini-powered chatbot with real-time Bitcoin price and weather API integration',
       'Completed 3 of 6 Python projects covering automation, scripting, and ML deployment'
     ],
-    certificateLink: '/internships/QSKILL_Certificate.jpg'
+    certificateLink: '/internships/CertificationOfQSKILL.png'
   },
   {
     label: 'Internship 4',
