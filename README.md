@@ -23,7 +23,7 @@ The portfolio is designed to highlight real project work and practical experienc
 - Clean single-page experience with section-based navigation
 - Dedicated project detail pages using dynamic routes
 - Resume route that redirects to an external Google Drive link
-- Feedback and recommendation system
+- Feedback and recommendation system(uses RESEND to mail me Info)
 - Contact form support
 - Animated UI with Framer Motion
 - Production-ready deployment on Vercel
