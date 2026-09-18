@@ -1,6 +1,3 @@
-// Requires: DATABASE_URL (from Neon dashboard)
-// Requires: APPROVE_SECRET (any random string you choose, e.g. "myportfolio2026")
-// Requires: RESEND_API_KEY (already set)
 
 import { neon, NeonQueryFunction } from '@neondatabase/serverless';
 
