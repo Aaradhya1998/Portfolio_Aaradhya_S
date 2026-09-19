@@ -142,8 +142,7 @@ export const certifications: CertificationEntry[] = [
       'AI systems thinking'
     ],
     certificateLink: '',
-    previewImage: '',
-    previewVariant: 'outskill-masterclass'
+    previewImage: '/certificates/OutSkill_Masteclass.jpeg',
   },
   {
     name: 'Designing Scalable RAG Pipelines',
@@ -170,5 +169,24 @@ export const certifications: CertificationEntry[] = [
     ],
     certificateLink: '',
     previewImage: '/certificates/skillcourse-python-micro-course.png'
+  },
+
+  {
+    name: 'Ethical Hacking and CyberSecurity workshop',
+    issuer: 'Vaultofcodes',
+    date: '17 September 2026',
+    description:
+      'Participated in vaultofcodes Workshop on Ethical Hacking and CyberSecurity',
+    skillsGained: [
+      'Password Cracking',
+      'Social media Hacking',
+      'Website Hacking',
+      'Wi-Fi Hacking/Security',
+      'Security and Privacy',
+      'Secrets of how Hackers think and work',
+      'How to protect yourself from Hackers'
+    ],
+      certificateLink: '',
+    previewImage: '/certificates/EthicalHack_Vaultofcodes.png'
   }
 ];
