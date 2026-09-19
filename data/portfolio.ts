@@ -187,6 +187,6 @@ export const certifications: CertificationEntry[] = [
       'How to protect yourself from Hackers'
     ],
       certificateLink: '',
-    previewImage: '/certificates/EthicalHack_Vaultofcodes.png'
+    previewImage: '/certificates/EthicalHack_Vaultofcodes.jpeg'
   }
 ];
