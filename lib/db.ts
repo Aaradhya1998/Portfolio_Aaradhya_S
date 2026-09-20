@@ -34,4 +34,7 @@ export async function initDb() {
       created_at TIMESTAMP DEFAULT NOW()
     );
   `;
+  await sql`
+    ALTER TABLE reviews ADD COLUMN IF NOT EXISTS linkedin_url TEXT;
+  `;
 }

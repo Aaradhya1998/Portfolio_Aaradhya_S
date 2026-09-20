@@ -20,7 +20,7 @@ export async function GET() {
 
     // Query approved reviews
     const rows = await sql`
-      SELECT id, name, role, company, rating, message, approved, created_at
+      SELECT id, name, role, company, rating, message, approved, linkedin_url, created_at
       FROM reviews
       WHERE approved = true
       ORDER BY created_at DESC, id DESC;
@@ -35,7 +35,8 @@ export async function GET() {
       organization: r.company,
       rating: r.rating,
       message: r.message,
-      profileUrl: r.profileUrl || r.profile_url || undefined,
+      linkedin_url: r.linkedin_url || undefined,
+      profileUrl: r.linkedin_url || undefined,
     }));
 
     return NextResponse.json(reviews);
@@ -52,7 +53,7 @@ export async function POST(request: Request) {
     let company = '';
     let rating = 5;
     let message = '';
-    let profileUrl = '';
+    let linkedinUrl = '';
 
     const contentType = request.headers.get('content-type') || '';
 
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
       company = (body.company || body.organization)?.toString().trim() || '';
       rating = body.rating !== undefined && body.rating !== null ? Number(body.rating) || 5 : 5;
       message = body.message?.toString().trim() || '';
-      profileUrl = body.profileUrl?.toString().trim() || '';
+      linkedinUrl = (body.linkedin_url || body.profileUrl)?.toString().trim() || '';
     } else {
       const formData = await request.formData();
       name = formData.get('name')?.toString().trim() || '';
@@ -72,7 +73,7 @@ export async function POST(request: Request) {
       const formRating = formData.get('rating');
       rating = formRating !== null ? Number(formRating) || 5 : 5;
       message = formData.get('message')?.toString().trim() || '';
-      profileUrl = formData.get('profileUrl')?.toString().trim() || '';
+      linkedinUrl = (formData.get('linkedin_url') || formData.get('profileUrl'))?.toString().trim() || '';
     }
 
     if (!name || !role || !message) {
@@ -85,8 +86,8 @@ export async function POST(request: Request) {
     if (sql) {
       await initDb();
       const insertResult = await sql`
-        INSERT INTO reviews (name, role, company, rating, message, approved)
-        VALUES (${name}, ${role}, ${company}, ${rating}, ${message}, false)
+        INSERT INTO reviews (name, role, company, rating, message, linkedin_url, approved)
+        VALUES (${name}, ${role}, ${company}, ${rating}, ${message}, ${linkedinUrl || null}, false)
         RETURNING id;
       `;
       if (insertResult && insertResult.length > 0) {
@@ -99,6 +100,9 @@ export async function POST(request: Request) {
     const approveLink = reviewId
       ? `https://aaradhyashekdar.vercel.app/api/reviews/approve?id=${reviewId}&secret=${approveSecret}`
       : `https://aaradhyashekdar.vercel.app/api/reviews/approve?secret=${approveSecret}`;
+    const deleteLink = reviewId
+      ? `https://aaradhyashekdar.vercel.app/api/reviews/delete?id=${reviewId}&secret=${approveSecret}`
+      : `https://aaradhyashekdar.vercel.app/api/reviews/delete?secret=${approveSecret}`;
 
     if (resendApiKey) {
       const htmlContent = `
@@ -107,16 +111,21 @@ export async function POST(request: Request) {
         <p><strong>Role:</strong> ${role}</p>
         ${company ? `<p><strong>Company / Organization:</strong> ${company}</p>` : ''}
         <p><strong>Rating:</strong> ${rating} / 5</p>
-        ${profileUrl ? `<p><strong>Profile / LinkedIn:</strong> <a href="${profileUrl}">${profileUrl}</a></p>` : ''}
+        ${linkedinUrl ? `<p><strong>Profile / LinkedIn:</strong> <a href="${linkedinUrl}">${linkedinUrl}</a></p>` : ''}
         <p><strong>Message:</strong></p>
         <blockquote style="border-left: 3px solid #38bdf8; padding-left: 12px; margin: 12px 0; color: #334155;">
           ${message}
         </blockquote>
         <br />
         <div style="margin-top: 20px; padding: 16px; background-color: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px;">
-          <p style="margin: 0 0 10px 0; font-weight: bold; color: #0369a1;">Approve this review for your public portfolio:</p>
-          <a href="${approveLink}" style="display: inline-block; background-color: #0284c7; color: #ffffff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: 600;">
-            ✓ Approve Review
+          <p style="margin: 0 0 10px 0; font-weight: bold; color: #0369a1;">Manage this review for your public portfolio:</p>
+          <p style="margin: 0 0 10px 0;">&#9989; Approve: <a href="${approveLink}">${approveLink}</a></p>
+          <p style="margin: 0 0 14px 0;">&#128465;&#65039; Delete: <a href="${deleteLink}">${deleteLink}</a></p>
+          <a href="${approveLink}" style="display: inline-block; background-color: #0284c7; color: #ffffff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; margin-right: 8px;">
+            &#9989; Approve Review
+          </a>
+          <a href="${deleteLink}" style="display: inline-block; background-color: #dc2626; color: #ffffff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: 600;">
+            &#128465;&#65039; Delete Review
           </a>
         </div>
       `;

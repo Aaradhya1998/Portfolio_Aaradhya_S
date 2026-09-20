@@ -299,7 +299,7 @@ export default function Home() {
           role: reviewForm.role,
           company: reviewForm.organization,
           organization: reviewForm.organization,
-          profileUrl: reviewForm.profileUrl,
+          linkedin_url: reviewForm.profileUrl,
           message: reviewForm.message
         })
       });
@@ -718,12 +718,16 @@ export default function Home() {
                 placeholder="Organization / College (optional)"
                 className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none sm:col-span-2"
               />
+              <label htmlFor="linkedin_url" className="sr-only">
+                Your LinkedIn Profile (optional)
+              </label>
               <input
+                id="linkedin_url"
                 type="url"
-                name="profileUrl"
+                name="linkedin_url"
                 value={reviewForm.profileUrl}
                 onChange={(e) => setReviewForm((prev) => ({ ...prev, profileUrl: e.target.value }))}
-                placeholder="LinkedIn URL (optional)"
+                placeholder="https://linkedin.com/in/yourname"
                 className="rounded-3xl border border-white/10 bg-slate-900/85 px-4 py-3 text-white outline-none sm:col-span-2"
               />
               <textarea
